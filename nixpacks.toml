@@ -1,0 +1,46 @@
+[variables]
+PYTHONUNBUFFERED = "1"
+PLAYWRIGHT_BROWSERS_PATH = "0"
+
+[phases.setup]
+nixPkgs = [
+  "python312",
+  "python312Packages.pip",
+  "python312Packages.setuptools",
+  "python312Packages.wheel",
+  "glib",
+  "nss",
+  "nspr",
+  "atk",
+  "at-spi2-atk",
+  "cups",
+  "dbus",
+  "expat",
+  "libdrm",
+  "xorg.libxcb",
+  "xorg.libX11",
+  "xorg.libXcomposite",
+  "xorg.libXdamage",
+  "xorg.libXext",
+  "xorg.libXfixes",
+  "xorg.libXrandr",
+  "mesa",
+  "pango",
+  "cairo",
+  "alsa-lib",
+  "gtk3"
+]
+
+[phases.install]
+cmds = [
+  "python -V",
+  "which python",
+  "python -m ensurepip --upgrade || true",
+  "python -m pip install --upgrade pip setuptools wheel",
+  "python -m pip install -r requirements.txt",
+  "python -m pip show playwright",
+  "python -m playwright install chromium"
+]
+
+[start]
+cmd = "python main.py"
